@@ -17,7 +17,11 @@ function App() {
     .then( resp => resp.json()) // convert it to json
     .then( resp => setMovies(resp)) // set movies
     .catch( error => console.log(error))
-  }, []) //empty means it will run when app.js component did mount(run)
+  }, []); //empty means it will run when app.js component did mount(run)
+
+  const movieClicked = movie => {
+    console.log(movie.title);
+  }
 
   return (
     <div className="App">
@@ -26,7 +30,7 @@ function App() {
 
       </header>
       <div className="Layout">
-        <MovieList movies={movies}/>
+        <MovieList movies={movies} movieClicked={movieClicked}/>
         <div>Movie Detail: </div>
       </div>
     </div>
