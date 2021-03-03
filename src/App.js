@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import MovieList from './components/movie-list';
+import MovieDetails from './components/movie-details';
 
 function App() {
 
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
@@ -20,7 +22,7 @@ function App() {
   }, []); //empty means it will run when app.js component did mount(run)
 
   const movieClicked = movie => {
-    console.log(movie.title);
+    setSelectedMovie(movie);
   }
 
   return (
@@ -31,7 +33,7 @@ function App() {
       </header>
       <div className="Layout">
         <MovieList movies={movies} movieClicked={movieClicked}/>
-        <div>Movie Detail: </div>
+        <MovieDetails movie={selectedMovie}/>
       </div>
     </div>
   );
