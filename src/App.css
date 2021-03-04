@@ -32,3 +32,13 @@
 .rate-container .svg-inline--fa {
   font-size: 1.2em;
 }
+
+.movie-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+}
+
+.movie-item svg {
+  font-size: 1.2rem;
+  margin: 20px 8px;
+}
