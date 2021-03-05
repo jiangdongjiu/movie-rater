@@ -6,12 +6,10 @@ function MovieForm(props) {
   const [ title, setTitle ] = useState(props.movie ? props.movie.title : null);
   const [ description, setDescription ] = useState(props.movie ? props.movie.description : null);
 
-  // useEffect(() => {
-  //   effect
-  //   return () => {
-  //     cleanup
-  //   };
-  // }, [input]);
+  useEffect(() => {
+    setTitle(props.movie.title);
+    setDescription(props.movie.description);
+  }, [props.movie]); //useState will not change when props.movie change, useEffect help with this kind of lifecycle hooks.
 
   const updateCLicked = () => {
     API.updateMovie(props.movie.id, {title, description}) // SHOTCUT, body should be an object like {title: title, description: description}.

@@ -25,4 +25,13 @@ export class API {
     })
     .then( resp => resp.json()) // convert it to json, selected movie
   }
+
+  static deleteMovie(movie_id) {
+    return fetch(`http://127.0.0.1:8000/api/movies/${movie_id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token ${TOKEN}` // need to be dynamic
+      }
+    })
+  }
 }

@@ -9,7 +9,6 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
-  const [trashedMovie, setTrashedMovie] = useState(null);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
@@ -34,8 +33,9 @@ function App() {
     setSelectedMovie(null);
   }
 
-  const trashCLicked = movie => {
-    setTrashedMovie(movie);
+  const removeCLicked = movie => {
+    const newMovies = movies.filter( mov => mov.id !== movie.id);
+    setMovies(newMovies);
   }
 
   const updatedMovie = movie => {
@@ -67,7 +67,12 @@ function App() {
       </header>
       <div className="Layout">
         <div>
-          <MovieList movies={movies} movieClicked={loadMovie} editClicked={editClicked} trashCLicked={trashCLicked}/>
+          <MovieList
+            movies={movies}
+            movieClicked={loadMovie}
+            editClicked={editClicked}
+            removeCLicked={removeCLicked}
+          />
           <button onClick = { newMovie }>New movie</button>
         </div>
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie}/>
