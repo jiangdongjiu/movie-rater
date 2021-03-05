@@ -9,11 +9,11 @@ function MovieList(props){
     props.movieClicked(movie);
   }
 
-  const editClicked = movie => {
+  const editClicked = movie => evt =>{
     props.editClicked(movie);
   }
 
-  const trashCLicked = movie => {
+  const trashCLicked = movie => evt => {
     props.trashCLicked(movie);
   }
 
@@ -23,8 +23,8 @@ function MovieList(props){
         return (
           <div key={movie.id} className="movie-item">
             <h2 onClick={movieClicked(movie)}>{movie.title}</h2>
-            <FontAwesomeIcon icon={faEdit} onClick={evt => editClicked(movie)}/>
-            <FontAwesomeIcon icon={faTrash} onClick={evt => trashCLicked(movie)}/>
+            <FontAwesomeIcon icon={faEdit} onClick={editClicked(movie)}/>
+            <FontAwesomeIcon icon={faTrash} onClick={trashCLicked(movie)}/>
           </div>
         );
       })}

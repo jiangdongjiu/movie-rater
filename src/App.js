@@ -38,6 +38,17 @@ function App() {
     setTrashedMovie(movie);
   }
 
+  const updatedMovie = movie => {
+    const newMovies = movies.map( mov => {
+      if (mov.id === movie.id){
+        return movie;
+      }
+      return mov;
+    })
+
+    setMovies(newMovies);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -46,7 +57,7 @@ function App() {
       <div className="Layout">
         <MovieList movies={movies} movieClicked={loadMovie} editClicked={editClicked} trashCLicked={trashCLicked}/>
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie}/>
-        { editedMovie ? <MovieForm movie={editedMovie} /> : null }
+        { editedMovie ? <MovieForm movie={editedMovie} updatedMovie={updatedMovie}/> : null }
       </div>
     </div>
   );
