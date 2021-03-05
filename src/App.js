@@ -49,16 +49,33 @@ function App() {
     setMovies(newMovies);
   }
 
+  // to create a new movie record
+  const newMovie = () => {
+    setEditedMovie({title: '', description: ''});
+    setSelectedMovie(null);
+  }
+
+  const createdMovie = movie => {
+    const newMovies = [...movies, movie];
+    setMovies(newMovies);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Movie Rater</h1>
       </header>
       <div className="Layout">
-        <MovieList movies={movies} movieClicked={loadMovie} editClicked={editClicked} trashCLicked={trashCLicked}/>
+        <div>
+          <MovieList movies={movies} movieClicked={loadMovie} editClicked={editClicked} trashCLicked={trashCLicked}/>
+          <button onClick = { newMovie }>New movie</button>
+        </div>
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie}/>
-        { editedMovie ? <MovieForm movie={editedMovie} updatedMovie={updatedMovie}/> : null }
+        { editedMovie ?
+          <MovieForm movie={editedMovie} updatedMovie={updatedMovie} createdMovie={createdMovie}/>
+           : null }
       </div>
+
     </div>
   );
 }
