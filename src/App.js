@@ -3,25 +3,32 @@ import './App.css';
 import MovieList from './components/movie-list';
 import MovieDetails from './components/movie-details';
 import MovieForm from './components/movie-form';
+import { useCookies } from 'react-cookie';
 
 function App() {
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
+  const [token] = useCookies(['mr-token']); // token I think should be name as cookies. it is like the session that have keys.
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
-        'Authorization': 'Token e9ddc5e91e1c82e33ca20a807f54238b766ada75' // need to be dynamic
+        'Authorization': `Token ${token['mr-token']}` // need to be dynamic
       }
     })
     .then( resp => resp.json()) // convert it to json
     .then( resp => setMovies(resp)) // set movies
     .catch( error => console.log(error))
-  }, []); //empty means it will run when app.js component did mount(run)
+  }, []); //empty means it will run when app.js component did mount(run). it will run once.
+
+  useEffect(() => {
+    console.log(token)
+    if (!token['mr-token']) window.location.href = '/';
+  }, [token]);
 
   const loadMovie = movie => {
     setSelectedMovie(movie);

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../api-service';
+import { useCookies } from 'react-cookie';
+
 
 function MovieForm(props) {
 
   const [ title, setTitle ] = useState(props.movie ? props.movie.title : null);
   const [ description, setDescription ] = useState(props.movie ? props.movie.description : null);
+  const [token] = useCookies(['mr-token']);
 
   useEffect(() => {
     setTitle(props.movie.title);
@@ -12,13 +15,13 @@ function MovieForm(props) {
   }, [props.movie]); //useState will not change when props.movie change, useEffect help with this kind of lifecycle hooks.
 
   const updateCLicked = () => {
-    API.updateMovie(props.movie.id, {title, description}) // SHOTCUT, body should be an object like {title: title, description: description}.
+    API.updateMovie(props.movie.id, {title, description}, token['mr-token']) // SHOTCUT, body should be an object like {title: title, description: description}.
     .then( resp => props.updatedMovie(resp))
     .catch( error => console.log(error));
   }
 
   const createCLicked = () => {
-    API.createMovie({title, description}) // SHOTCUT, body should be an object like {title: title, description: description}.
+    API.createMovie({title, description}, token['mr-token']) // SHOTCUT, body should be an object like {title: title, description: description}.
     .then( resp => props.createdMovie(resp))
     .catch( error => console.log(error));
   }

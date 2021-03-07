@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { useCookies } from "react-cookie";
 
 function MovieDetails(props){
 
   let mov = props.movie;
 
   const [highLighted, setHighLighted] = useState(-1);
+  const [token] = useCookies(['mr-token']);
 
   const highLightRate = highLightedIndex => evt => {
     setHighLighted(highLightedIndex);
@@ -16,7 +18,7 @@ function MovieDetails(props){
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
-        'Authorization': 'Token e9ddc5e91e1c82e33ca20a807f54238b766ada75' // need to be dynamic
+        'Authorization': `Token ${token['mr-token']}` // need to be dynamic
       },
       body: JSON.stringify( {stars: clickIndex+1} ) // body need json type, {something:something} is an object.
     })
@@ -29,7 +31,7 @@ function MovieDetails(props){
       method: 'GET',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
-        'Authorization': 'Token e9ddc5e91e1c82e33ca20a807f54238b766ada75' // need to be dynamic
+        'Authorization': `Token ${token['mr-token']}` // need to be dynamic
       }
     })
     .then( resp => resp.json()) // convert it to json, selected movie
