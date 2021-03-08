@@ -1,4 +1,14 @@
 export class API {
+  static getMovie(token) {
+    return fetch("http://127.0.0.1:8000/api/movies/", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
+        'Authorization': `Token ${token}` // need to be dynamic
+      }
+    })
+    .then( resp => resp.json()) // convert it to json
+  }
 
   static loginUser(body) {
     return fetch(`http://127.0.0.1:8000/auth/`, {

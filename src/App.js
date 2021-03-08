@@ -6,6 +6,7 @@ import MovieForm from './components/movie-form';
 import { useCookies } from 'react-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilm,  faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
+import { useFetch } from './hooks/useFetch';
 
 function App() {
 
@@ -13,19 +14,11 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
   const [token, setToken] = useCookies(['mr-token']); // token I think should be name as cookies. it is like the session that have keys.
+  const [data, loading, error] = useFetch();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/movies/", {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
-        'Authorization': `Token ${token['mr-token']}` // need to be dynamic
-      }
-    })
-    .then( resp => resp.json()) // convert it to json
-    .then( resp => setMovies(resp)) // set movies
-    .catch( error => console.log(error))
-  }, []); //empty means it will run when app.js component did mount(run). it will run once.
+    setMovies(data);
+  }, [data]); //empty means it will run when app.js component did mount(run). it will run once.
 
   useEffect(() => {
     console.log(token)
@@ -73,6 +66,9 @@ function App() {
     setToken('mr-token', '');
   }
 
+  if (loading) return <h1>Loading...</h1>
+  if (error) return <h1>Error loading movies: {error}</h1>
+  // if a return happended, code below that return will not run.
   return (
     <div className="App">
       <header className="App-header">
