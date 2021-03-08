@@ -1,3 +1,4 @@
+/* I want to try bootstrap later */
 .App {
   min-height: 100vh;
   background-color: #282c34;
@@ -41,4 +42,56 @@
 .movie-item svg {
   font-size: 1.2rem;
   margin: 20px 8px;
+}
+
+.login-container {
+  width: 50%;
+  margin: auto 25%;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px auto;
+  font-size: 1.2rem;
+}
+button {
+  color: #444;
+  background-color: #f3f3f3;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  outline: blue;
+}
+button:disabled {
+  color: #f3f3f3;
+  background-color: #444;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  outline: blue;
+  cursor: not-allowed;
+}
+
+.fa-trash {
+  color: crimson;
+}
+
+h1 {
+  color: orange;
+}
+
+h1 .fa-film {
+  color: white;
+  transform: rotate(25deg);
+}
+
+.fa-sign-out-alt {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 2.0rem;
 }
