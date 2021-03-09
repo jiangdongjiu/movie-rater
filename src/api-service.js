@@ -1,6 +1,6 @@
 import env from "react-dotenv";
 
-const URL = env['API_URL'];
+const URL = env['api_url'];
 export class API {
   static getMovie(token) {
     return fetch(`${URL}/api/movies/`, {
