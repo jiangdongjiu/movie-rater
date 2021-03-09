@@ -1,3 +1,3 @@
 window.env = {
-  "API_URL": "http://127.0.0.1:8000"
+  "api_url": "https://movie-rater-dongjiu.herokuapp.com"
 };

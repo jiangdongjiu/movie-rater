@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API } from '../api-service';
 import { useCookies } from "react-cookie";
+import env from "react-dotenv";
 
 function Auth() {
 
@@ -13,6 +14,7 @@ function Auth() {
   useEffect(() => {
     console.log(token);
     if (token['mr-token'] && token['mr-token'] !== 'undefined') window.location.href = '/movies';
+    console.log(env['api_url']);
   }, [token]);
 
   const loginCLicked = () => {
