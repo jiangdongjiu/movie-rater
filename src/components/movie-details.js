@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useCookies } from "react-cookie";
+import { API } from "../api-service";
 
 function MovieDetails(props){
 
@@ -14,27 +15,13 @@ function MovieDetails(props){
     setHighLighted(highLightedIndex);
   }
   const clickRate = clickIndex => evt => {
-    fetch(`http://127.0.0.1:8000/api/movies/${mov.id}/rate_movie/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
-        'Authorization': `Token ${token['mr-token']}` // need to be dynamic
-      },
-      body: JSON.stringify( {stars: clickIndex+1} ) // body need json type, {something:something} is an object.
-    })
+    API.rateMovie(mov.id, {stars: clickIndex+1}, token['mr-token'])
     .then( () => getdetails())
     .catch( error => console.log(error))
   }
 
   const getdetails = () => {
-    fetch(`http://127.0.0.1:8000/api/movies/${mov.id}/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
-        'Authorization': `Token ${token['mr-token']}` // need to be dynamic
-      }
-    })
-    .then( resp => resp.json()) // convert it to json, selected movie
+    API.getMovieDetails(mov.id, token['mr-token'])
     .then( resp => props.updateMovie(resp)) // changed the selected movie data. tell parent to update.
     .catch( error => console.log(error))
   }

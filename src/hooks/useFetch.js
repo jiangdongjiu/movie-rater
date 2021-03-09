@@ -19,7 +19,7 @@ function useFetch() {
     } // async will help to wait the function resolved first. so we can call it later.
 
     fetchData();
-  }, []);
+  }, [token]);
 
   return [data, loading, error]
 }

@@ -1,6 +1,9 @@
+import env from "react-dotenv";
+
+const URL = env['API_URL'];
 export class API {
   static getMovie(token) {
-    return fetch("http://127.0.0.1:8000/api/movies/", {
+    return fetch(`${URL}/api/movies/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
@@ -11,7 +14,7 @@ export class API {
   }
 
   static loginUser(body) {
-    return fetch(`http://127.0.0.1:8000/auth/`, {
+    return fetch(`${URL}/auth/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
@@ -22,7 +25,7 @@ export class API {
   }
 
   static registerUser(body) {
-    return fetch('http://127.0.0.1:8000/api/users/', {
+    return fetch(`${URL}/api/users/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
@@ -33,7 +36,7 @@ export class API {
   }
 
   static updateMovie(movie_id, body, token) {
-    return fetch(`http://127.0.0.1:8000/api/movies/${movie_id}/`, {
+    return fetch(`${URL}/api/movies/${movie_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
@@ -45,7 +48,7 @@ export class API {
   }
 
   static createMovie(body, token) {
-    return fetch(`http://127.0.0.1:8000/api/movies/`, {
+    return fetch(`${URL}/api/movies/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
@@ -57,11 +60,33 @@ export class API {
   }
 
   static deleteMovie(movie_id, token) {
-    return fetch(`http://127.0.0.1:8000/api/movies/${movie_id}/`, {
+    return fetch(`${URL}/api/movies/${movie_id}/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Token ${token}` // need to be dynamic
       }
     })
+  }
+
+  static rateMovie(movie_id, body, token) {
+    return fetch(`${URL}/api/movies/${movie_id}/rate_movie/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
+        'Authorization': `Token ${token}` // need to be dynamic
+      },
+      body: JSON.stringify( body ) // body need json type, {something:something} is an object.
+    })
+  }
+
+  static getMovieDetails(movie_id, token) {
+    return fetch(`${URL}/api/movies/${movie_id}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json', // it means it will send the get requrest and receive json data
+        'Authorization': `Token ${token}` // need to be dynamic
+      }
+    })
+    .then( resp => resp.json())
   }
 }
